@@ -44,6 +44,7 @@
       <br>
    
   <form id="designer-form" action="SU.php" method="post"> <!--this changed-->
+       <input type="hidden" name="userType" value="designer">
     <label for="first-name-designer">First Name:</label>
       <input type="text" id="first-name-designer" name="firstName" required="">
       <label for="last-name-designer">Last Name:</label>
@@ -64,6 +65,7 @@
   </form>
 
   <form id="client-form" action="SU.php" method="post"> <!--this changed-->
+       <input type="hidden" name="userType" value="client">
     <label for="first-name-client">First Name:</label>
       <input type="text" id="first-name-client" name="firstName" required="">
       <label for="last-name-client">Last Name:</label>
