@@ -55,6 +55,8 @@
       <input type="password" id="password-designer" name="password" placeholder="**********" required="">
       <label for="brand-name">Brand Name:</label>
       <input type="text" id="brand-name" name="brandName" required="">
+      <label for="logo">Logo:</label>
+    <input type="file" id="logo" name="logoImgFileName" accept="image/*" required="">
       <label>Speciality in Interior Design:</label>
       <br><br>
       <input type="checkbox" class="check" id="modern"> <label for="modern">Modern</label><br>
