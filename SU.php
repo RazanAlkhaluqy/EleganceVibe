@@ -1,6 +1,9 @@
 <?php
 session_start();
 
+// Enable error reporting
+error_reporting(E_ALL);
+
 // Database connection
 $servername = "localhost";
 $username = "root";
@@ -37,8 +40,7 @@ if (isset($_POST['userType'], $_POST['firstName'], $_POST['lastName'], $_POST['e
             $fields = "firstName, lastName, emailAddress, password, brandName";
             $sql = "INSERT INTO designer ($fields) VALUES (?, ?, ?, ?, ?)";
             $stmt = $conn->prepare($sql);
-            $brandName = $_POST['brandName']; // Retrieve brandName separately
-            $stmt->bind_param("sssss", $firstName, $lastName, $email, $password, $brandName);
+            $stmt->bind_param("sssss", $firstName, $lastName, $email, $password, $_POST['brandName']);
         } else {
             $fields = "firstName, lastName, emailAddress, password";
             $sql = "INSERT INTO client ($fields) VALUES (?, ?, ?, ?)";
@@ -59,6 +61,7 @@ if (isset($_POST['userType'], $_POST['firstName'], $_POST['lastName'], $_POST['e
             exit();
         } else {
             // If Signup failed
+            echo "Error: " . $sql . "<br>" . $conn->error; // Debugging output
             header('Location: SignUp.php?error=stmtfailed');
             exit();
         }
