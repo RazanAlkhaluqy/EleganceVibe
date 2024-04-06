@@ -37,10 +37,10 @@ if (isset($_POST['userType'], $_POST['firstName'], $_POST['lastName'], $_POST['e
     } else {
         // Adding user to database
         if ($userType == "designer") {
-            $fields = "firstName, lastName, emailAddress, password, brandName";
-            $sql = "INSERT INTO designer ($fields) VALUES (?, ?, ?, ?, ?)";
+            $fields = "firstName, lastName, emailAddress, password, brandName ,logoImgFileName";
+            $sql = "INSERT INTO designer ($fields) VALUES (?, ?, ?, ?, ?, ?)";
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("sssss", $firstName, $lastName, $email, $password, $_POST['brandName']);
+            $stmt->bind_param("sssss", $firstName, $lastName, $email, $password, $_POST['brandName'],$_POST['logoImgFileName']);
         } else {
             $fields = "firstName, lastName, emailAddress, password";
             $sql = "INSERT INTO client ($fields) VALUES (?, ?, ?, ?)";
