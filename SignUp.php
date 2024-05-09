@@ -2,8 +2,6 @@
 <!DOCTYPE html>
 <html lang="en">
   
-  <?php session_start();
-?>
 <head>
     
   <meta charset="UTF-8">
@@ -43,39 +41,62 @@
       <br>
       <br>
    
-  <form id="designer-form" action="SU.php" method="post"> <!--this changed-->
-       <input type="hidden" name="userType" value="designer">
-    <label for="first-name-designer">First Name:</label>
-      <input type="text" id="first-name-designer" name="firstName" required="">
-      <label for="last-name-designer">Last Name:</label>
-      <input type="text" id="last-name-designer" name="lastName" required="">
-      <label for="email-designer">Email:</label>
-      <input type="email" id="email-designer" name="email" placeholder="example@email.com" required="">
-      <label for="password-designer">Password:</label>
-      <input type="password" id="password-designer" name="password" placeholder="**********" required="">
-      <label for="brand-name">Brand Name:</label>
-      <input type="text" id="brand-name" name="brandName" required="">
-      <label for="logo">Logo:</label>
-    <input type="file" id="logo" name="logoImgFileName" accept="image/*" required="">
-      <label>Speciality in Interior Design:</label>
-      <br><br>
-      <input type="checkbox" class="check" id="modern"> <label for="modern">Modern</label><br>
-      <input type="checkbox" class="check" id="country"> <label for="country">Country</label><br>
-      <input type="checkbox" class="check" id="coastal"> <label for="coastal">Coastal</label><br>
-      <input type="checkbox" class="check" id="bohemian"> <label for="bohemian">Bohemian</label><br><br>
-      <input type="submit" value="Sign Up" class="button">
+  <form id="designer-form"   enctype="multipart/form-data"
+  action="addDesigner1.php" method="post"> <!--this changed-->
+    
+    <label for="firstName">First Name:</label>
+    <input type="text" name="firstName" id="DfirstName" required="">
+
+    <label for="lastName">Last Name:</label>
+    <input type="text" name="lastName" id="DlastName" required="">
+
+    <label for="email">Email:</label>
+    <input type="email" name="email" id="Demail" placeholder="example@email.com" required="">
+
+    <label for="password">Password:</label>
+    <input type="password" name="password"   id="Dpassword" placeholder="**********" required="">
+
+    <label for="brandName">Brand Name:</label>
+    <input type="text"  name="brandName"    id="brandName" required="">
+
+    <label for="logo">Logo:</label>
+    <input type="file" id="logo" accept="image/*" name="logo" >
+
+    <label>Speciality in Interior Design:</label>
+    <br>
+    <br>
+    <input type="checkbox" class="check" id="modern" name="spec[]" value="Modren"> <label for="modern">Modren</label>  <!--spelling-->
+    <br>
+    <input type="checkbox" class="check" id="country" name="spec[]" value="Country"> <label for="country">Country</label>
+    <br>
+    <input type="checkbox" class="check" id="coastal" name="spec[]" value="Coastal"> <label for="coastal">Coastal</label>
+    <br>
+    <input type="checkbox" class="check" id="bohemian" name="spec[]" value="Bohemian"> <label for="bohemian">Bohemian</label>
+    <br>
+    
+    <br> 
+     <!--<button onclick="  submitdForm()">Submit</button>-->
+    <input type="submit" value="Sign Up" class="button">
   </form>
 
-  <form id="client-form" action="SU.php" method="post"> <!--this changed-->
-       <input type="hidden" name="userType" value="client">
-    <label for="first-name-client">First Name:</label>
-      <input type="text" id="first-name-client" name="firstName" required="">
-      <label for="last-name-client">Last Name:</label>
-      <input type="text" id="last-name-client" name="lastName" required="">
-      <label for="email-client">Email:</label>
-      <input type="email" id="email-client" name="email" placeholder="example@email.com" required="">
-      <label for="password-client">Password:</label>
-      <input type="password" id="password-client" name="password" placeholder="**********" required="">
+  <form id="client-form"
+  action="addClient.php" method="post"> <!--this changed-->
+   
+
+
+    <label for="firstName">First Name:</label>
+    <input type="text" name="firstName" id="CfirstName" required="">
+
+    <label for="lastName">Last Name:</label>
+    <input type="text" name="lastName" id="ClastName" required="">
+
+    <label for="email">Email:</label>
+    <input type="email"   name="email" id="Cemail" placeholder="example@email.com" required="">
+
+    <label for="password">Password:</label>
+    <input type="password"  name="password" id="Cpassword" placeholder="**********" required="">
+
+ <!--   <button onclick=" submitcForm()">Submit</button> -->
       <input type="submit" value="Sign Up" class="button">
   </form>
   <?php
@@ -84,7 +105,7 @@ if(isset($_GET["error"])){
         echo"<p>Sorry! Something went wrong, please try again</p>";
     }
     if($_GET["error"]=="emailtaken"){
-        echo'<p>Sorry! Email is already taken,try something else!<a href="Login.php" class="button" id="loginLink">Log in</a>?</p>';
+        echo'<p>Sorry! This Email is already taken,try something else!<a href="Login.php" class="button" id="loginLink">Log in</a>?</p>';
     }
     if($_GET["error"]=="noUpload"){
         echo"<p>Sorry! Error in uploading the Image</p>";
@@ -131,3 +152,4 @@ if(isset($_GET["error"])){
 
 
 </body></html>
+
