@@ -17,7 +17,7 @@
      <div class="container">
          <h1 class="index"> WELCOME TO ELEGANCE VIBE </h1><br>
          <button id="index" onclick="redirectlogInPage()"> Log In </button> <br><br>
-     <h3 class="index"> New user ? <a href="signUp.html" class="link">Sign Up</a> </h3>
+     <h3 class="index"> New user ? <a href="SignUp.php" class="link">Sign Up</a> </h3>
      </div>
      <footer>
         <div id="footer">
