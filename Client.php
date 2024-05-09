@@ -101,7 +101,7 @@ $queryConsultationRequests = $mysqli->query("SELECT
             $client_query = $mysqli->query("SELECT firstName, lastName, emailAddress FROM Client WHERE id = $id");
             if($row = $client_query->fetch_assoc()) {
                 echo "<section class=welcome-section id=welcomeSection>";
-                echo "<h1>Welcome, " . $row['firstName'] . "!</h1></section><br>";
+                echo "<h1>Welcome, " . $row['firstName'] .$id. "!</h1></section><br>";
                 echo "Client's Information:<br>";
                 echo "<table><th>Full Name: </th><td>" . $row['firstName'] . " " . $row['lastName'] . "</td></tr>";
                 echo "<tr><th>Email: </th><td>" . $row['emailAddress'] . "</td></tr></table>";
@@ -112,23 +112,75 @@ $queryConsultationRequests = $mysqli->query("SELECT
         </section>
         <br> 
         <!-- Form for filtering designers by category -->
-        <form method="post" action="">
+       <!-- <form method="post" action="">
             <label for="category">Filter Designers by Category:</label>
             <select name="category" id="category">
                 <?php
                 // Retrieve all categories from the database
-                $categories_query = $mysqli->query("SELECT * FROM DesignCategory");
+            /*    $categories_query = $mysqli->query("SELECT * FROM DesignCategory");
                 while ($row = $categories_query->fetch_assoc()) {
                     echo "<option value='".$row['category']."'>".$row['category']."</option>";
                 }
-                ?>
+             */   ?>  
             </select>
             <input type="submit" value="Filter">
         </form>
+        -->
+        <label for="category">Filter Designers by Category:</label>
+<select name="category" id="category">
+    <?php
+    // Retrieve all categories from the database
+    $categories_query = $mysqli->query("SELECT * FROM DesignCategory");
+    while ($row = $categories_query->fetch_assoc()) {
+        echo "<option value='".$row['category']."'>".$row['category']."</option>";
+    }
+    ?>
+</select>
+        
+        <!-- JavaScript for AJAX request -->
+<script>
+    document.getElementById('category').addEventListener('change', function() {
+        var category = this.value;
+        // Make an AJAX request
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    // Update the designers table with the received data
+                    updateDesignersTable(JSON.parse(xhr.responseText));
+                } else {
+                    console.error('AJAX request failed.');
+                }
+            }
+        };
+        xhr.open('POST', 'filter_designers.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send('category=' + encodeURIComponent(category));
+    });
 
+    function updateDesignersTable(data) {
+    var tableBody = document.querySelector('#designersTable tbody');
+    // Clear existing table rows
+    tableBody.innerHTML = '';
+
+    // Iterate over the received data and populate the table
+    data.forEach(function(designer) {
+        var row = '<tr>' +
+            '<td><a href="portfolio.php?designer_id=' + designer.id + '">' +
+            '<img src="image/' + designer.logoImgFileName + '" alt="' + designer.brandName + '" width="120">' +
+            designer.brandName +
+            '</a></td>' +
+            '<td>' + designer.specialities + '</td>' +
+            '<td><a href="request_consultation.php?designer_id=' + designer.id + '">Request Design Consultation</a></td>' +
+            '</tr>';
+        tableBody.innerHTML += row;
+    });
+}
+
+</script>
         <!-- Display designers -->
         <h2>Designers:</h2>
-        <table border="1">
+        <table border="1" id="designersTable">
             <thead>
                 <tr>
                     <th>Designer</th>
