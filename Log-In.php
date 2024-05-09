@@ -26,7 +26,7 @@
                   <option value="client">Client</option>
               </select>
              <input type="submit" value="Log In" id=""> 
-              <h5> New user ? <a href="SignUp.php" class="link">Sign Up</a> </h5>
+             <h5> New user ? <a href="SignUp.php" class="link">Sign Up</a> </h5> 
              <?php 
               if (isset($_GET['error'])): ?>
                 <p style="color: red;">Invalid email address or password.</p>
