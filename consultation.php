@@ -60,42 +60,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $requestId = $_POST['request_id'];
         $consultation = $_POST['consultation'];
         
-       // Handle file upload
-if ($_FILES['photo']['error'] === UPLOAD_ERR_OK) {
-    $photoName = $_FILES['photo']['name'];
-    $photoTmpName = $_FILES['photo']['tmp_name'];
-    $photoType = $_FILES['photo']['type'];
-    $photoSize = $_FILES['photo']['size'];
+        // Handle file upload
+        if ($_FILES['photo']['error'] === UPLOAD_ERR_OK) {
+            $photoName = $_FILES['photo']['name'];
+            $photoTmpName = $_FILES['photo']['tmp_name'];
+            $photoType = $_FILES['photo']['type'];
+            $photoSize = $_FILES['photo']['size'];
 
-    // Generate a unique file name incorporating the request ID
-    $uploadDir = "C:/MAMP/htdocs/elegance vibe/image/"; 
-    $uniqueFileName = uniqid() . '_' . $requestId . '_' . $photoName;
-    $photoPath = $uploadDir . $uniqueFileName;
+            // Generate a unique file name incorporating the request ID
+            $uploadDir = "C:/MAMP/htdocs/EleganceVibe/image/"; 
+            $uniqueFileName = uniqid() . '_' . $requestId . '_' . $photoName;
+            $photoPath = $uploadDir . $uniqueFileName;
 
-    // Move the uploaded file to the desired location
-    if (move_uploaded_file($photoTmpName, $photoPath)) {
-        // File uploaded successfully
-    } else {
-        // File upload failed
-        echo "Failed to upload file.";
-        exit;
-    }
-
-            
-            // Insert a new design consultation entry into the DesignConsultation table
-            $insertQuery = "INSERT INTO DesignConsultation (requestID, consultation, consultationImgFileName) VALUES (?, ?, ?)";
-            $insertStmt = $conn->prepare($insertQuery);
-            if (!$insertStmt) {
-                echo "Error: " . $conn->error;
-                exit;
-            }
-            $insertStmt->bind_param("iss", $requestId, $consultation, $photoName);
-            $insertStmt->execute();
-            if ($insertStmt->error) {
-                echo "Error: " . $insertStmt->error;
+            // Move the uploaded file to the desired location
+            if (move_uploaded_file($photoTmpName, $photoPath)) {
+                // File uploaded successfully
+                
+                // Insert a new design consultation entry into the DesignConsultation table
+                $insertQuery = "INSERT INTO DesignConsultation (requestID, consultation, consultationImgFileName) VALUES (?, ?, ?)";
+                $insertStmt = $conn->prepare($insertQuery);
+                if (!$insertStmt) {
+                    echo "Error: " . $conn->error;
+                    exit;
+                }
+                $insertStmt->bind_param("iss", $requestId, $consultation, $uniqueFileName);
+                $insertStmt->execute();
+                if ($insertStmt->error) {
+                    echo "Error: " . $insertStmt->error;
+                    exit;
+                }
+            } else {
+                // File upload failed
+                echo "Failed to upload file.";
                 exit;
             }
         } else {
+            // Handle file upload errors
             echo "Error uploading file.";
             exit;
         }
@@ -219,6 +219,13 @@ if ($_FILES['photo']['error'] === UPLOAD_ERR_OK) {
 // Close connection
 $conn->close();
 ?>
+
+<?php
+// Close connection
+$conn->close();
+?>
+
+
 
 
 
