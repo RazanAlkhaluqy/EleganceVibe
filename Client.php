@@ -111,21 +111,7 @@ $queryConsultationRequests = $mysqli->query("SELECT
             ?>
         </section>
         <br> 
-        <!-- Form for filtering designers by category -->
-       <!-- <form method="post" action="">
-            <label for="category">Filter Designers by Category:</label>
-            <select name="category" id="category">
-                <?php
-                // Retrieve all categories from the database
-            /*    $categories_query = $mysqli->query("SELECT * FROM DesignCategory");
-                while ($row = $categories_query->fetch_assoc()) {
-                    echo "<option value='".$row['category']."'>".$row['category']."</option>";
-                }
-             */   ?>  
-            </select>
-            <input type="submit" value="Filter">
-        </form>
-        -->
+       
         <label for="category">Filter Designers by Category:</label>
 <select name="category" id="category">
     <?php
@@ -188,19 +174,7 @@ $queryConsultationRequests = $mysqli->query("SELECT
                     <th>Request Design Consultation</th>
                 </tr>
             </thead>
-            <tbody>
-                <?php while ($designer = $designers_query->fetch_assoc()): ?>
-                    <tr>
-                        <td>
-                            <a href="portfolio.php?designer_id=<?php echo $designer['id']; ?>">
-                                <img  src="image/<?php echo $designer['logoImgFileName']; ?>" alt="<?php echo $designer['brandName']; ?>" width='120' > <?php echo $designer['brandName']; ?>
-                            </a>
-                        </td>
-                        <td><?php echo $designer['specialities']; ?></td>
-                        <td><a href="request_consultation.php?designer_id=<?php echo $designer['id']; ?>">
-                                Request Design Consultation</a></td>
-                    </tr>
-                <?php endwhile; ?>
+            <tbody> 
             </tbody>
         </table>
 
